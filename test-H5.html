@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<style type="text/css">
+	
+	</style>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="jquery.fullpage.js"></script>
+	<script type="text/javascript" src="jquery-ui.min.js"></script>
+
+	<script type="text/javascript" src="js/H5.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/test-H5.css">
+	<script type="text/javascript" src="js/test-H5ComponentBase.js"></script>
+
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+			
+		}
+	</style>
+
+	<!--基本的图文组件-->
+</head>
+<body>
+	<!--测试内容组织功能-->
+	<!--内容组织管理，有可能会加载若干个资源-->
+	<script type="text/javascript">
+
+	$(function(){
+			var h5 = new H5();
+			/*h5页面 第一二。。。页  链式调用，添加页面同时添加组件*/
+			h5.addPage('face')
+				.addComponent('logo',{
+					text:'logo',
+					width:400,
+					height:100,
+					css:{backgroundColor:'red',top:200,opacity:0},
+					center:true,
+					animateIn:{opacity:1},
+					animateOut:{opacity:0}
+				})
+				.addComponent('slogon',{
+					text:'slogon',
+					width:400,
+					height:100,
+					css:{backgroundColor:'blue',top:350},
+					center:true,
+				})
+			.addPage('desc')
+				.addComponent('caption',{
+					text:'核心理念',
+					width:400,
+					height:100,
+					css:{backgroundColor:'blue',top:250},
+					center:true,
+				})
+			.addPage('page-3')
+				.addComponent('caption',{
+					text:'课程分布方向',
+					width:400,
+					height:100,
+					css:{backgroundColor:'#646464',top:250},
+					center:true,
+				})
+			//资源加载完成使用loader呈现界面
+			.loader();
+		})
+	</script>
+</body>
+</html>

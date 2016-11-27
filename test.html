@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.component{
+			width: 50%;
+			height: 50px;
+			margin-bottom: 20px;
+			background-color: #eee;
+
+			display: none;
+		}
+	</style>
+
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="jquery-ui.min.js"></script>
+	<script type="text/javascript" src="jquery.fullPage.js"></script>
+
+	<script type="text/javascript">
+		$(function(){ 
+
+			$('#h5').fullpage({
+				'sectionsColor':['#254875',"#00FF00","#254587","#695684"],
+				//当前界面离开时进行的操作
+				//index ---当前界面  nextIndex ---下一个界面  direction --- 方向
+				onLeave:function(index,nextIndex,direction){
+					//触发onLeave事件  
+					$('#h5').find('.page').eq(index-1).trigger('onLeave');
+					//debugger;
+				},
+				afterLoad:function(anchorLink,index){
+					$('#h5').find('.page').eq(index-1).trigger('onLoad');
+					//debugger;
+				},
+			});
+			//onLeave和onLoad事件
+			$('.page').on('onLeave',function(){
+				console.log($(this).attr('id'),'==>>','onLeave');
+				$(this).find('.component').trigger('onLeave');
+			})
+			$('.page').on('onLoad',function(){
+				console.log($(this).attr('id'),'==>>','onLoad');
+				//执行component的onload事件
+				$(this).find('.component').trigger('onLoad');
+			})
+			/*将元素隐藏起来display: none;
+			载入淡入淡出效果
+			*/
+			//入场动画   
+			//浏览器主动执行输入$('.component').trigger('onLoad')
+			$('.component').on('onLoad',function(){
+				$(this).fadeIn();
+				//结束，结束死循环
+				return false;
+			})
+			//出场动画
+			$('.component').on('onLeave',function(){
+				$(this).fadeOut();
+				return false;
+			})
+
+
+
+		});
+		</script>
+</head>
+<body>
+	<div id="h5">
+		<div class="page section" id="page-1">
+			<div class="component log">logo</div>
+			<div class="component slogan">slogo</div>
+		</div>
+		<div class="page section" id="page-2">
+			<div class="component desc">描述信息</div>
+		</div>
+		<div class="page section" id="page-3">
+			<div class="component bar">其他</div>
+		</div>
+	</div>
+</body>
+</html>
